@@ -11,6 +11,14 @@ interface Props {
 }
 
 export default function QuizPanel({ answered, selectedNote, correctNote, onAnswer, onNext, compact = false }: Props) {
+  function handleClick(note: string) {
+    if (!answered) {
+      onAnswer(note);
+    } else if (note === selectedNote) {
+      onNext();
+    }
+  }
+
   const noteGrid = (
     <div className="note-grid">
       {NOTE_NAMES.map((note) => {
@@ -24,8 +32,8 @@ export default function QuizPanel({ answered, selectedNote, correctNote, onAnswe
             key={note}
             type="button"
             className={className}
-            disabled={answered}
-            onClick={() => onAnswer(note)}
+            disabled={answered && note !== selectedNote}
+            onClick={() => handleClick(note)}
           >
             {note}
           </button>
