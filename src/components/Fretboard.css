@@ -1,0 +1,76 @@
+.fretboard {
+  width: 100%;
+  height: auto;
+  display: block;
+  font-family: inherit;
+}
+
+.fretboard-bg {
+  fill: #c8935c;
+  rx: 6;
+}
+
+.fretboard-dim {
+  fill: rgba(0, 0, 0, 0.45);
+  pointer-events: none;
+}
+
+.fret-line {
+  stroke: #d8d0c4;
+  stroke-width: 2;
+}
+
+.nut-line {
+  stroke: #f4f1ea;
+  stroke-width: 6;
+}
+
+.string-line {
+  stroke: #e7e2d6;
+}
+
+.string-line--dim {
+  stroke: rgba(231, 226, 214, 0.25);
+}
+
+.fret-marker {
+  fill: rgba(255, 255, 255, 0.35);
+}
+
+.string-label {
+  fill: var(--text-secondary);
+  font-size: 13px;
+  text-anchor: middle;
+  dominant-baseline: middle;
+}
+
+.fret-number {
+  fill: var(--text-secondary);
+  font-size: 13px;
+  text-anchor: middle;
+  dominant-baseline: middle;
+}
+
+.fretboard-dot {
+  stroke: rgba(0, 0, 0, 0.35);
+  stroke-width: 1.5;
+}
+
+.fretboard-dot--pending {
+  fill: #f2b84b;
+}
+
+.fretboard-dot--correct {
+  fill: #3fbf68;
+}
+
+.fretboard-dot--incorrect {
+  fill: #e6503f;
+}
+
+.fretboard-answer-label {
+  fill: var(--text-primary);
+  font-size: 15px;
+  font-weight: 600;
+  text-anchor: middle;
+}
