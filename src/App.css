@@ -30,16 +30,14 @@
 }
 
 .fretboard-wrap--vertical {
-  max-height: 75vh;
-  overflow-y: auto;
   display: flex;
   justify-content: center;
 }
 
 .fretboard-wrap--vertical .fretboard {
-  width: auto;
-  height: 100%;
-  max-width: 100%;
+  width: 100%;
+  max-width: 260px;
+  height: auto;
 }
 
 @media (max-width: 640px) {
