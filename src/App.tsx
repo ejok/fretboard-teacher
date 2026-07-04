@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react';
-import Fretboard from './components/Fretboard';
+import FretboardStage from './components/FretboardStage';
 import RangeControls from './components/RangeControls';
 import QuizPanel from './components/QuizPanel';
 import { generateQuestion, normalizeRange, type Question } from './lib/quiz';
@@ -51,7 +51,7 @@ export default function App() {
   }
 
   return (
-    <div className="app">
+    <div className={`app${isNarrowViewport ? ' app--compact' : ''}`}>
       <header className="app-header">
         <h1>Fretboard Teacher</h1>
         <p>Find the highlighted note on the fretboard.</p>
@@ -65,24 +65,26 @@ export default function App() {
         onChange={handleRangeChange}
       />
 
-      <div className={`fretboard-wrap${orientation === 'vertical' ? ' fretboard-wrap--vertical' : ''}`}>
-        <Fretboard
+      <div className="quiz-row">
+        <FretboardStage
           stringRange={stringRange}
           fretRange={fretRange}
           question={question}
           revealed={answered}
           correct={correct}
           orientation={orientation}
+          fitToContainer={isNarrowViewport}
+        />
+
+        <QuizPanel
+          answered={answered}
+          selectedNote={selectedNote}
+          correctNote={correctNote}
+          onAnswer={handleAnswer}
+          onNext={handleNext}
+          compact={isNarrowViewport}
         />
       </div>
-
-      <QuizPanel
-        answered={answered}
-        selectedNote={selectedNote}
-        correctNote={correctNote}
-        onAnswer={handleAnswer}
-        onNext={handleNext}
-      />
     </div>
   );
 }

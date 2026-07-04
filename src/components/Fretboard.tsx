@@ -55,6 +55,12 @@ function stringSecPos(index: number): number {
   return SECONDARY_MARGIN_START + index * STRING_SPACING;
 }
 
+export function getFretboardNaturalSize(orientation: Orientation): { width: number; height: number } {
+  return orientation === 'vertical'
+    ? { width: SECONDARY_TOTAL, height: PRIMARY_TOTAL }
+    : { width: PRIMARY_TOTAL, height: SECONDARY_TOTAL };
+}
+
 export default function Fretboard({ stringRange, fretRange, question, revealed, correct, orientation }: Props) {
   const isVertical = orientation === 'vertical';
 
@@ -69,8 +75,7 @@ export default function Fretboard({ stringRange, fretRange, question, revealed, 
     return stringSecPos(isVertical ? idx : STRINGS.length - 1 - idx);
   }
 
-  const width = isVertical ? SECONDARY_TOTAL : PRIMARY_TOTAL;
-  const height = isVertical ? PRIMARY_TOTAL : SECONDARY_TOTAL;
+  const { width, height } = getFretboardNaturalSize(orientation);
 
   const dotStringIndex = STRINGS.findIndex((s) => s.number === question.string);
   const neckSecCenter = (NECK_SEC_START + NECK_SEC_END) / 2;
