@@ -129,3 +129,20 @@
   padding: 0;
   font-size: 14px;
 }
+
+.timer-countdown {
+  display: inline-block;
+  margin-left: 8px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: var(--text-primary);
+}
+
+.timer-countdown--urgent {
+  color: #e6503f;
+}
+
+.quiz-panel--compact .timer-countdown {
+  margin-left: 0;
+  font-size: 22px;
+}
