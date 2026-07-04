@@ -62,6 +62,13 @@ export default function Fretboard({ stringRange, fretRange, question, revealed, 
     return isVertical ? { x: secondary, y: primary } : { x: primary, y: secondary };
   }
 
+  // STRINGS is ordered low-E(6) to high-E(1). Vertical keeps that order
+  // (6 on the left). Horizontal flips it so high-E(1) is on top, matching
+  // standard tab notation, with low-E(6) on the bottom.
+  function secPosForIndex(idx: number): number {
+    return stringSecPos(isVertical ? idx : STRINGS.length - 1 - idx);
+  }
+
   const width = isVertical ? SECONDARY_TOTAL : PRIMARY_TOTAL;
   const height = isVertical ? PRIMARY_TOTAL : SECONDARY_TOTAL;
 
@@ -83,8 +90,8 @@ export default function Fretboard({ stringRange, fretRange, question, revealed, 
     height: Math.abs(neckEnd.y - neckStart.y),
   };
 
-  const dotPos = axisPoint(fretCenterPos(question.fret), stringSecPos(dotStringIndex));
-  const labelPos = axisPoint(fretCenterPos(question.fret), stringSecPos(dotStringIndex) - 18);
+  const dotPos = axisPoint(fretCenterPos(question.fret), secPosForIndex(dotStringIndex));
+  const labelPos = axisPoint(fretCenterPos(question.fret), secPosForIndex(dotStringIndex) - 18);
 
   return (
     <svg
@@ -142,8 +149,8 @@ export default function Fretboard({ stringRange, fretRange, question, revealed, 
       })}
 
       {STRINGS.map((s, idx) => {
-        const a = axisPoint(NECK_PRI_START, stringSecPos(idx));
-        const b = axisPoint(NECK_PRI_END, stringSecPos(idx));
+        const a = axisPoint(NECK_PRI_START, secPosForIndex(idx));
+        const b = axisPoint(NECK_PRI_END, secPosForIndex(idx));
         return (
           <line
             key={s.number}
@@ -159,7 +166,7 @@ export default function Fretboard({ stringRange, fretRange, question, revealed, 
       })}
 
       {STRINGS.map((s, idx) => {
-        const p = axisPoint(LABEL_PRIMARY, stringSecPos(idx));
+        const p = axisPoint(LABEL_PRIMARY, secPosForIndex(idx));
         return (
           <text key={`label-${s.number}`} x={p.x} y={p.y} className="string-label">
             {s.number}
