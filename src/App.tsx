@@ -30,6 +30,9 @@ export default function App() {
   const [timerSeconds, setTimerSeconds] = useState(DEFAULT_TIMER_SECONDS);
   const [timeLeft, setTimeLeft] = useState(DEFAULT_TIMER_SECONDS);
 
+  const [streak, setStreak] = useState(0);
+  const [sessionBest, setSessionBest] = useState(0);
+
   const correctNote = noteNameAt(question.string, question.fret);
   const correct = answered ? selectedNote === correctNote : null;
 
@@ -73,9 +76,19 @@ export default function App() {
     if (answered) return;
     setSelectedNote(note);
     setAnswered(true);
+    if (note === correctNote) {
+      const next = streak + 1;
+      setStreak(next);
+      setSessionBest((best) => Math.max(best, next));
+    }
   }
 
   function handleNext() {
+    // The streak stays visible through the incorrect-answer reveal and only
+    // resets once you move on, so you can see what you had going.
+    if (!correct) {
+      setStreak(0);
+    }
     setQuestion(generateQuestion(stringRange, fretRange));
     setAnswered(false);
     setSelectedNote(null);
@@ -124,6 +137,8 @@ export default function App() {
           compact={isNarrowViewport}
           timerEnabled={timerEnabled}
           timeLeft={timeLeft}
+          streak={streak}
+          sessionBest={sessionBest}
         />
       </div>
     </div>

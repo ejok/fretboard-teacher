@@ -10,6 +10,8 @@ interface Props {
   compact?: boolean;
   timerEnabled?: boolean;
   timeLeft?: number;
+  streak: number;
+  sessionBest: number;
 }
 
 export default function QuizPanel({
@@ -21,6 +23,8 @@ export default function QuizPanel({
   compact = false,
   timerEnabled = false,
   timeLeft = 0,
+  streak,
+  sessionBest,
 }: Props) {
   // The button that advances to the next question: the one you picked, or —
   // if time ran out before you picked anything — the correct answer.
@@ -67,9 +71,23 @@ export default function QuizPanel({
     <span className={`timer-countdown${timeLeft <= 2 ? ' timer-countdown--urgent' : ''}`}>{timeLeft}s</span>
   );
 
+  const counters = (
+    <div className="quiz-counters">
+      <div className="counter">
+        <span className="counter-value">{streak}</span>
+        <span className="counter-label">streak</span>
+      </div>
+      <div className="counter">
+        <span className="counter-value">{sessionBest}</span>
+        <span className="counter-label">best</span>
+      </div>
+    </div>
+  );
+
   if (compact) {
     return (
       <div className="quiz-panel quiz-panel--compact">
+        {counters}
         <div className="quiz-status" aria-live="polite">
           {answered ? (
             <>
@@ -89,6 +107,7 @@ export default function QuizPanel({
 
   return (
     <div className="quiz-panel">
+      {counters}
       <p className="quiz-prompt">
         Which note is marked on the fretboard?
         {countdown}
