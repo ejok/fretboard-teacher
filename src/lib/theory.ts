@@ -2,6 +2,12 @@ export const NOTE_NAMES = [
   'C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B',
 ] as const;
 
+/** Same 12 notes, reordered starting from A, for the answer button grid. */
+export const ANSWER_NOTE_ORDER: readonly string[] = [
+  ...NOTE_NAMES.slice(NOTE_NAMES.indexOf('A')),
+  ...NOTE_NAMES.slice(0, NOTE_NAMES.indexOf('A')),
+];
+
 export interface StringDef {
   /** Standard guitar string number: 6 = low E, 1 = high E */
   number: number;

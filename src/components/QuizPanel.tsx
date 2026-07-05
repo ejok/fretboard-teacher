@@ -1,4 +1,4 @@
-import { NOTE_NAMES } from '../lib/theory';
+import { ANSWER_NOTE_ORDER } from '../lib/theory';
 import './QuizPanel.css';
 
 interface Props {
@@ -41,7 +41,7 @@ export default function QuizPanel({
 
   const noteGrid = (
     <div className="note-grid">
-      {NOTE_NAMES.map((note) => {
+      {ANSWER_NOTE_ORDER.map((note) => {
         let className = 'note-button';
         if (answered) {
           if (note === correctNote) className += ' note-button--correct';
